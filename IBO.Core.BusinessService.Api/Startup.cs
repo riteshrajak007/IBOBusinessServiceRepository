@@ -29,11 +29,9 @@ namespace IBO.Core.BusinessService.Api
         {
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
-            var connectionString = Configuration.GetConnectionString("SchoolBoardDbContext");
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IStudentService, StudentService>();
-            services.AddScoped<ISchoolService, SchoolService>();
-            //services.AddScoped<IUnitOfWork>(sp => new UnitOfWork(new BusinessServiceDbContext()));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<ISchoolService, SchoolService>();
             services.AddDbContext<BusinessServiceDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:SchoolBoardDbContext"]));
         }
 
@@ -59,4 +57,5 @@ namespace IBO.Core.BusinessService.Api
             });
         }
     }
+
 }

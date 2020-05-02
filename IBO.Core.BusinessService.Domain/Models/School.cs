@@ -8,15 +8,17 @@ namespace IBO.Core.BusinessService.Domain.Models
     {
         public int Id { get; set; }
 
-        public int Name { get; set; }
+        public string Name { get; set; }
 
-        public int Country { get; set; }
+        public string Country { get; set; }
 
-        public string User { get; set; } //Teacher,principal, cordinator ---implement  Enum for this 
+        //public string User { get; set; } //Teacher,principal, cordinator ---implement  Enum for this 
 
-        public int BoardId { get; set; }
+        public virtual Language Language { get; set;}
 
-        public int LanguageId { get; set; }
+        public virtual Board Board { get; set; }
+
+        //public int LanguageId { get; set; }
 
         public virtual ICollection<Student> Students { get; set; }
 

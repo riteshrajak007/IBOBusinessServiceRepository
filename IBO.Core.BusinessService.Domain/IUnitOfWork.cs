@@ -9,7 +9,6 @@ namespace IBO.Core.BusinessService.Domain
     {
         IStudentRepository Students { get; }
         ISchoolRepository Schools { get; }
-        
         int Complete();
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IBO.Core.BusinessService.Data.Migrations
 {
-    public partial class InitialModel : Migration
+    public partial class InitialModelchanged : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,8 +27,8 @@ namespace IBO.Core.BusinessService.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Level = table.Column<string>(nullable: true),
-                    FromMarks = table.Column<string>(nullable: true),
-                    ToMarks = table.Column<string>(nullable: true)
+                    FromMarks = table.Column<int>(nullable: false),
+                    ToMarks = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,8 +41,7 @@ namespace IBO.Core.BusinessService.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    SchoolId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,7 +55,7 @@ namespace IBO.Core.BusinessService.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    BoardId = table.Column<int>(nullable: false)
+                    BoardId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -66,7 +65,7 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         column: x => x.BoardId,
                         principalTable: "tblBoard",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,9 +76,8 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<int>(nullable: false),
                     Country = table.Column<int>(nullable: false),
-                    User = table.Column<string>(nullable: true),
-                    BoardId = table.Column<int>(nullable: false),
-                    LanguageId = table.Column<int>(nullable: false)
+                    LanguageId = table.Column<int>(nullable: true),
+                    BoardId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,7 +87,13 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         column: x => x.BoardId,
                         principalTable: "tblBoard",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_tblSchool_tblLanguage_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "tblLanguage",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,7 +104,7 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartDate = table.Column<DateTime>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: true),
-                    ProgramId = table.Column<int>(nullable: false)
+                    ProgramId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,7 +114,7 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         column: x => x.ProgramId,
                         principalTable: "tblProgram",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,8 +125,8 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    LanguageId = table.Column<int>(nullable: false),
-                    ProgramId = table.Column<int>(nullable: false)
+                    LanguageId = table.Column<int>(nullable: true),
+                    ProgramId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -132,13 +136,13 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         column: x => x.LanguageId,
                         principalTable: "tblLanguage",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_tblCourse_tblProgram_ProgramId",
                         column: x => x.ProgramId,
                         principalTable: "tblProgram",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,20 +156,38 @@ namespace IBO.Core.BusinessService.Data.Migrations
                     Gender = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    LanguageId = table.Column<int>(nullable: false),
-                    SchoolId = table.Column<int>(nullable: false),
-                    GradeId = table.Column<int>(nullable: false),
-                    ProgramId = table.Column<int>(nullable: false)
+                    LanguageId = table.Column<int>(nullable: true),
+                    SchoolId = table.Column<int>(nullable: true),
+                    GradeId = table.Column<int>(nullable: true),
+                    ProgramId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tblStudent", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_tblStudent_tblGrade_GradeId",
+                        column: x => x.GradeId,
+                        principalTable: "tblGrade",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_tblStudent_tblLanguage_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "tblLanguage",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_tblStudent_tblProgram_ProgramId",
+                        column: x => x.ProgramId,
+                        principalTable: "tblProgram",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_tblStudent_tblSchool_SchoolId",
                         column: x => x.SchoolId,
                         principalTable: "tblSchool",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -194,6 +216,26 @@ namespace IBO.Core.BusinessService.Data.Migrations
                 column: "BoardId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tblSchool_LanguageId",
+                table: "tblSchool",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblStudent_GradeId",
+                table: "tblStudent",
+                column: "GradeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblStudent_LanguageId",
+                table: "tblStudent",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblStudent_ProgramId",
+                table: "tblStudent",
+                column: "ProgramId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tblStudent_SchoolId",
                 table: "tblStudent",
                 column: "SchoolId");
@@ -208,13 +250,10 @@ namespace IBO.Core.BusinessService.Data.Migrations
                 name: "tblCourse");
 
             migrationBuilder.DropTable(
-                name: "tblGrade");
-
-            migrationBuilder.DropTable(
                 name: "tblStudent");
 
             migrationBuilder.DropTable(
-                name: "tblLanguage");
+                name: "tblGrade");
 
             migrationBuilder.DropTable(
                 name: "tblProgram");
@@ -224,6 +263,9 @@ namespace IBO.Core.BusinessService.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "tblBoard");
+
+            migrationBuilder.DropTable(
+                name: "tblLanguage");
         }
     }
 }

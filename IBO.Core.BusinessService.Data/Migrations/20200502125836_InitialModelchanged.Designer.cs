@@ -4,14 +4,16 @@ using IBO.Core.BusinessService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IBO.Core.BusinessService.Data.Migrations
 {
     [DbContext(typeof(BusinessServiceDbContext))]
-    partial class BusinessServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200502125836_InitialModelchanged")]
+    partial class InitialModelchanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,14 +153,14 @@ namespace IBO.Core.BusinessService.Data.Migrations
                     b.Property<int?>("BoardId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Country")
+                        .HasColumnType("int");
 
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Name")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

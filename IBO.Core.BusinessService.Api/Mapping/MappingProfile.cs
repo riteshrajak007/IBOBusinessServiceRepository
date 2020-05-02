@@ -13,7 +13,15 @@ namespace IBO.Core.BusinessService.Api.Mapping
         public MappingProfile()
         {
             CreateMap<Student, StudentDto>();
+            CreateMap<StudentDto, Student>()
+    .ForMember(student => student.Id, opt => opt.Ignore());
+
+
             CreateMap<School, SchoolDto>();
+            CreateMap<SchoolDto, School>()
+    .ForMember(student => student.Id, opt => opt.Ignore());
         }
     }
+
+    
 }

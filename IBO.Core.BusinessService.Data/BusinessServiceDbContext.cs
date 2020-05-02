@@ -7,9 +7,9 @@ namespace IBO.Core.BusinessService.Data
 {
     public class BusinessServiceDbContext : DbContext
     {
-        public BusinessServiceDbContext()
+        public BusinessServiceDbContext(DbContextOptions options) : base(options)
         {
-            this.ChangeTracker.LazyLoadingEnabled = false;
+            this.ChangeTracker.LazyLoadingEnabled = true;
         }
 
         public virtual DbSet<Student> Students { get; set; }
@@ -23,10 +23,10 @@ namespace IBO.Core.BusinessService.Data
 
         //protected override void OnModelCreating
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(connectionString: @"Data Source=DNETAZ14;Initial Catalog=SchoolBoardDb;Integrated Security=True;");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(connectionString: @"Data Source=DNETAZ14;Initial Catalog=SchoolBoardDb;Integrated Security=True;");
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

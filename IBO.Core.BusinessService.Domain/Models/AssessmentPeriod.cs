@@ -11,7 +11,7 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public DateTime? EndDate { get; set; }
 
-        public int ProgramId { get; set; }
+        //public int ProgramId { get; set; }
         public virtual Program Program { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace IBO.Core.BusinessService.Services
 {
     public class SchoolService : ISchoolService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private  IUnitOfWork _unitOfWork;
         public SchoolService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -56,20 +56,5 @@ namespace IBO.Core.BusinessService.Services
             _unitOfWork.Complete();
         }
 
-        //public IEnumerable<Course> GetTopSellingCourses(int count)
-        //{
-        //    schoolboardDbContext.Schools.Include(a => a.).SingleOrDefault(a => a.Id == id);
-        //    return schoolboardDbContext.Schools.Add( .Schools.orde..OrderByDescending(c => c.FullPrice).Take(count).ToList();
-        //}
-
-        //public IEnumerable<Course> GetCoursesWithAuthors(int pageIndex, int pageSize = 10)
-        //{
-        //    return PlutoContext.Courses
-        //        .Include(c => c.Author)
-        //        .OrderBy(c => c.Name)
-        //        .Skip((pageIndex - 1) * pageSize)
-        //        .Take(pageSize)
-        //        .ToList();
-        //}
     }
 }

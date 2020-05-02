@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IBO.Core.BusinessService.Data.Migrations
 {
     [DbContext(typeof(BusinessServiceDbContext))]
-    [Migration("20200502043637_InitialModel")]
-    partial class InitialModel
+    [Migration("20200502131338_Modelchanged")]
+    partial class Modelchanged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,7 @@ namespace IBO.Core.BusinessService.Data.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProgramId")
+                    b.Property<int?>("ProgramId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDate")
@@ -69,13 +69,13 @@ namespace IBO.Core.BusinessService.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LanguageId")
+                    b.Property<int?>("LanguageId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProgramId")
+                    b.Property<int?>("ProgramId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -94,14 +94,14 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FromMarks")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("FromMarks")
+                        .HasColumnType("int");
 
                     b.Property<string>("Level")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ToMarks")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ToMarks")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -118,9 +118,6 @@ namespace IBO.Core.BusinessService.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SchoolId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("tblLanguage");
@@ -133,7 +130,7 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BoardId")
+                    b.Property<int?>("BoardId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -153,24 +150,23 @@ namespace IBO.Core.BusinessService.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BoardId")
+                    b.Property<int?>("BoardId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Country")
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("LanguageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
-
-                    b.Property<string>("User")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BoardId");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("tblSchool");
                 });
@@ -191,25 +187,31 @@ namespace IBO.Core.BusinessService.Data.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GradeId")
+                    b.Property<int?>("GradeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LanguageId")
+                    b.Property<int?>("LanguageId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProgramId")
+                    b.Property<int?>("ProgramId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SchoolId")
+                    b.Property<int?>("SchoolId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GradeId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("ProgramId");
 
                     b.HasIndex("SchoolId");
 
@@ -220,51 +222,55 @@ namespace IBO.Core.BusinessService.Data.Migrations
                 {
                     b.HasOne("IBO.Core.BusinessService.Domain.Models.Program", "Program")
                         .WithMany("AssessmentPeriods")
-                        .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProgramId");
                 });
 
             modelBuilder.Entity("IBO.Core.BusinessService.Domain.Models.Course", b =>
                 {
-                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Language", null)
+                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Language", "Language")
                         .WithMany("Courses")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LanguageId");
 
-                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Program", null)
+                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Program", "Program")
                         .WithMany("Courses")
-                        .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProgramId");
                 });
 
             modelBuilder.Entity("IBO.Core.BusinessService.Domain.Models.Program", b =>
                 {
-                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Board", null)
+                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Board", "Board")
                         .WithMany("Programs")
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BoardId");
                 });
 
             modelBuilder.Entity("IBO.Core.BusinessService.Domain.Models.School", b =>
                 {
-                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Board", null)
+                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Board", "Board")
                         .WithMany("Schools")
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BoardId");
+
+                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId");
                 });
 
             modelBuilder.Entity("IBO.Core.BusinessService.Domain.Models.Student", b =>
                 {
-                    b.HasOne("IBO.Core.BusinessService.Domain.Models.School", null)
+                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Grade", "Grade")
+                        .WithMany()
+                        .HasForeignKey("GradeId");
+
+                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId");
+
+                    b.HasOne("IBO.Core.BusinessService.Domain.Models.Program", "Program")
+                        .WithMany()
+                        .HasForeignKey("ProgramId");
+
+                    b.HasOne("IBO.Core.BusinessService.Domain.Models.School", "School")
                         .WithMany("Students")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SchoolId");
                 });
 #pragma warning restore 612, 618
         }

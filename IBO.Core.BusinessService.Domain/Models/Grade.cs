@@ -10,7 +10,7 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public string Level { get; set; }
 
-        public string FromMarks { get; set; }
-        public string ToMarks { get; set; }
+        public int FromMarks { get; set; }
+        public int ToMarks { get; set; }
     }
 }

@@ -10,7 +10,9 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public string Name { get; set; }
 
-        public int BoardId { get; set; }
+        public virtual Board Board { get; set; }
+
+        //public int BoardId { get; set; }
 
         public virtual ICollection<AssessmentPeriod> AssessmentPeriods { get; set; }
 

@@ -10,7 +10,7 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public string  Name { get; set; }
 
-        public int SchoolId { get; set; }
+        //public virtual School School { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
     }
