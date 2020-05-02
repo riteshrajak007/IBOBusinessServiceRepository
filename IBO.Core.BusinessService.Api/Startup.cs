@@ -29,9 +29,14 @@ namespace IBO.Core.BusinessService.Api
         {
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
+
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<IBoardService, BoardService>();
             services.AddTransient<ISchoolService, SchoolService>();
+            services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<IProgramService, ProgramService>();
+
             services.AddDbContext<BusinessServiceDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:SchoolBoardDbContext"]));
         }
 

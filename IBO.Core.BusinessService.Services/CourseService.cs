@@ -17,28 +17,31 @@ namespace IBO.Core.BusinessService.Services
         }
         public void AddCourse(Course course)
         {
-            //_unitOfWork.Cou
+            _unitOfWork.Courses.Add(course);
+            _unitOfWork.Complete();
             throw new NotImplementedException();
         }
 
         public void DeleteCourse(Course course)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Courses.Remove(course);
+            _unitOfWork.Complete();
         }
 
         public IEnumerable<Course> GetAllCourses()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Courses.GetAll();
         }
 
         public Course GetCourse(int id)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Courses.Get(id);
         }
 
         public void UpdateCourse(int id, Course course)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Courses.Update(course);
+            _unitOfWork.Complete();
         }
     }
 }

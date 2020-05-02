@@ -15,29 +15,33 @@ namespace IBO.Core.BusinessService.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public void AddBoard(Board Board)
+        public void AddBoard(Board board)
         {
+            _unitOfWork.Boards.Add(board);
+            _unitOfWork.Complete();
             throw new NotImplementedException();
         }
 
-        public void DeleteBoard(Board Board)
+        public void DeleteBoard(Board board)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Boards.Remove(board);
+            _unitOfWork.Complete();
         }
 
         public IEnumerable<Board> GetAllBoards()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Boards.GetAll();
         }
 
         public Board GetBoard(int id)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Boards.Get(id);
         }
 
-        public void UpdateBoard(int id, Board Board)
+        public void UpdateBoard(int id, Board board)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Boards.Update(board);
+            _unitOfWork.Complete();
         }
     }
 }

@@ -14,31 +14,8 @@ namespace IBO.Core.BusinessService.Data.Repositories
             : base(context)
         {
         }
-        //public Student AddStudent(Student student)
-        //{
-        //    schoolboardDbContext.Students.Add(student);
-        //    throw new NotImplementedException();
-        //}
 
-        //public IEnumerable<Student> GetAllStudents()
-        //{
-        //    schoolboardDbContext.Students.GetAll();
-        //    throw new NotImplementedException();
-        //}
-
-        //public Student GetStudent(int id)
-        //{
-        //    schoolboardDbContext.Get(id);
-        //    throw new NotImplementedException();
-        //}
-
-        //public void UpdateStudent(Student student)
-        //{
-        //    schoolboardDbContext.Update(student);
-        //    throw new NotImplementedException();
-        //}
-
-        public BusinessServiceDbContext schoolboardDbContext
+        public BusinessServiceDbContext BusinessServiceDbContext
         {
             get { return Context as BusinessServiceDbContext; }
         }

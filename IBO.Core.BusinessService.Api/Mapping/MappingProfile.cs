@@ -19,7 +19,16 @@ namespace IBO.Core.BusinessService.Api.Mapping
 
             CreateMap<School, SchoolDto>();
             CreateMap<SchoolDto, School>()
-    .ForMember(student => student.Id, opt => opt.Ignore());
+    .ForMember(c => c.Id, opt => opt.Ignore());
+
+            CreateMap<Program, ProgramDto>();
+            //CreateMap<ProgramDto, Program>();
+
+            CreateMap<Course, CourseDto>();
+            //CreateMap<CourseDto, Course>();
+
+            CreateMap<Board, BoardDto>();
+            //CreateMap<BoardDto, Board>();
         }
     }
 

@@ -17,28 +17,31 @@ namespace IBO.Core.BusinessService.Services
         }
         public void AddProgram(Program program)
         {
-            //_unitOfWork.pr
+            _unitOfWork.Programs.Add(program);
+            _unitOfWork.Complete();
             throw new NotImplementedException();
         }
 
         public void DeleteProgram(Program program)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Programs.Remove(program);
+            _unitOfWork.Complete();
         }
 
         public IEnumerable<Program> GetAllPrograms()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Programs.GetAll();
         }
 
         public Program GetProgram(int id)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Programs.Get(id);
         }
 
         public void UpdateProgram(int id, Program program)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Programs.Update(program);
+            _unitOfWork.Complete();
         }
     }
 }

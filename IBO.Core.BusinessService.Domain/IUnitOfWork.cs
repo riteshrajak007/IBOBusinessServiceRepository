@@ -9,6 +9,9 @@ namespace IBO.Core.BusinessService.Domain
     {
         IStudentRepository Students { get; }
         ISchoolRepository Schools { get; }
+        IProgramRepository Programs { get; }
+        ICourseRepository Courses { get; }
+        IBoardRepository Boards { get; }
         int Complete();
     }
 }
