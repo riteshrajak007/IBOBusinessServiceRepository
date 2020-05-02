@@ -30,9 +30,16 @@ namespace IBO.Core.BusinessService.Services
             return _unitOfWork.Students.Get(id);
         }
 
-        public void UpdateStudent(Student student)
+        public void UpdateStudent(int id,Student student)
         {
+            //var student = _unitOfWork.Schools.SingleOrDefault(c => c.Id == id);
             _unitOfWork.Students.Update(student);
+            _unitOfWork.Complete();
+        }
+
+        public void DeleteStudent(Student student)
+        {
+            _unitOfWork.Students.Remove(student);
             _unitOfWork.Complete();
         }
     }

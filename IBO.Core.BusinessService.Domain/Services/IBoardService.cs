@@ -11,8 +11,10 @@ namespace IBO.Core.BusinessService.Domain.Services
 
         Board GetBoard(int id);
 
-        Board AddBoard(Board student);
+        void AddBoard(Board Board);
 
-        void UpdateBoard(Board student);
+        void UpdateBoard(int id, Board Board);
+
+        void DeleteBoard(Board Board);
     }
 }

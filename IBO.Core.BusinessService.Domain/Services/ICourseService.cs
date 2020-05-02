@@ -11,8 +11,10 @@ namespace IBO.Core.BusinessService.Domain.Services
 
         Course GetCourse(int id);
 
-        Course AddCourse(Course course);
+        void AddCourse(Course course);
 
-        void UpdateCourse(Course course);
+        void UpdateCourse(int id, Course course);
+
+        void DeleteCourse(Course course);
     }
 }

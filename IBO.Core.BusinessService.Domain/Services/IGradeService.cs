@@ -11,8 +11,10 @@ namespace IBO.Core.BusinessService.Domain.Services
 
         Grade GetGrade(int id);
 
-        Grade AddGrade(Grade Grade);
+        void AddGrade(Grade grade);
 
-        void UpdateGrade(Grade Grade);
+        void UpdateGrade(Grade grade);
+
+        void DeleteGrade(Grade grade);
     }
 }

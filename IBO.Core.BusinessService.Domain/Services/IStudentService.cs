@@ -13,6 +13,8 @@ namespace IBO.Core.BusinessService.Domain.Services
 
         void AddStudent(Student student);
 
-        void UpdateStudent(Student student);
+        void UpdateStudent(int id, Student student);
+
+        void DeleteStudent(Student student);
     }
 }

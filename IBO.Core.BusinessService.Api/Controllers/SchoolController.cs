@@ -8,6 +8,7 @@ using IBO.Core.BusinessService.Domain.Models;
 using IBO.Core.BusinessService.Domain.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IBO.Core.BusinessService.Api.Controllers
 {
@@ -61,21 +62,33 @@ namespace IBO.Core.BusinessService.Api.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public IActionResult UpdateSchool([FromBody] SchoolDto schooldto)
+        [HttpPut("{id}")]
+        public IActionResult UpdateSchool(int id, [FromBody] SchoolDto schooldto)
         {
-            if (schooldto == null)
+            if (id != schooldto.Id || schooldto == null)
             {
                 return BadRequest();
             }
             try
             {
-                _schoolService.UpdateSchool(_mapper.Map<School>(schooldto));
+                _schoolService.UpdateSchool(id, _mapper.Map<School>(schooldto));
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSchool(int id)
+        {
+            School toBeDeletedItem = _schoolService.GetSchool(id);
+            if(toBeDeletedItem == null)
+            {
+                return NotFound();
+            }
+            _schoolService.DeleteSchool(toBeDeletedItem);
 
             return Ok();
         }

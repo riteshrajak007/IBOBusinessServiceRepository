@@ -20,19 +20,11 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public virtual Language Language { get; set; }
 
-        //public int LanguageId { get; set; }
-
         public virtual School School { get; set; }
-        //public int SchoolId { get; set; }
 
-        //public int CourseId { get; set; }
-
-        //public int GradeId { get; set; }
         public virtual Grade Grade { get; set; }
 
         public virtual Program Program { get; set; }
-
-        //public int ProgramId { get; set; }
 
     }
 

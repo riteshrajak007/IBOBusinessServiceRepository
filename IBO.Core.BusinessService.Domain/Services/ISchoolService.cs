@@ -11,9 +11,9 @@ namespace IBO.Core.BusinessService.Domain.Services
 
         School GetSchool(int id);
 
-        void AddSchool(School student);
+        void AddSchool(School school);
 
-        void UpdateSchool(School student);
+        void UpdateSchool(int id, School school);
 
         void AddListOfSchool(IEnumerable<School> schoolItems);
 

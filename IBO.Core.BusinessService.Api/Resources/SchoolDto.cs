@@ -12,11 +12,13 @@ namespace IBO.Core.BusinessService.Api.Resources
 
         public string Name { get; set; }
 
+        public DateTime DateOfBirth { get; set; }
+
+        public string Gender { get; set; }
+
         public string Country { get; set; }
 
-        public  Language Language { get; set; }
-
-        public virtual Board Board { get; set; }
+        public bool IsActive { get; set; }
 
     }
 }

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace IBO.Core.BusinessService.Domain.Repositories
 {
-    public interface IStudentRepository : IRepository<Student>
+    public interface ICourseRepository : IRepository<Course>
     {
-        
+
     }
 }

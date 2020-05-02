@@ -11,8 +11,10 @@ namespace IBO.Core.BusinessService.Domain.Services
 
         AssessmentPeriod GetAssessmentPeriod(int id);
 
-        AssessmentPeriod AddAssessmentPeriod(AssessmentPeriod assessmentPeriod);
+        void AddAssessmentPeriod(AssessmentPeriod assessmentPeriod);
 
         void UpdateAssessmentPeriod(AssessmentPeriod assessentPeriod);
+
+        void DeleteAssessmentPeriod(AssessmentPeriod assessentPeriod);
     }
 }

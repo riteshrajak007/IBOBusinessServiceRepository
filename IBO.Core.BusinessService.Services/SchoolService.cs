@@ -32,21 +32,22 @@ namespace IBO.Core.BusinessService.Services
             _unitOfWork.Complete();
         }
 
-        void ISchoolService.UpdateSchool(School school)
+        void ISchoolService.UpdateSchool(int id, School itemSchool)
         {
-            _unitOfWork.Schools.Update(school);
+             //var school = _unitOfWork.Schools.SingleOrDefault(c => c.Id == id);
+            _unitOfWork.Schools.Update(itemSchool);
+            _unitOfWork.Complete();
+        }
+
+        void ISchoolService.DeleteSchool(School school)
+        {
+            _unitOfWork.Schools.Remove(school);
             _unitOfWork.Complete();
         }
 
         void ISchoolService.AddListOfSchool(IEnumerable<School> schoolItems)
         {
             _unitOfWork.Schools.AddRange(schoolItems);
-            _unitOfWork.Complete();
-        }
-
-        void ISchoolService.DeleteSchool(School school)
-        {
-            _unitOfWork.Schools.Add(school);
             _unitOfWork.Complete();
         }
 
