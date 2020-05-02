@@ -8,6 +8,8 @@ namespace IBO.Core.BusinessService.Domain
     public interface IUnitOfWork : IDisposable
     {
         IStudentRepository Students { get; }
+        ISchoolRepository Schools { get; }
+        
         int Complete();
     }
 }

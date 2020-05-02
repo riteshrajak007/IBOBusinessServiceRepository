@@ -9,10 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
   </ItemGroup>
@@ -20,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\IBO.Core.BusinessService.Data\IBO.Core.BusinessService.Data.csproj" />
     <ProjectReference Include="..\IBO.Core.BusinessService.Domain\IBO.Core.BusinessService.Domain.csproj" />
+    <ProjectReference Include="..\IBO.Core.BusinessService.Services\IBO.Core.BusinessService.Services.csproj" />
   </ItemGroup>
 
 

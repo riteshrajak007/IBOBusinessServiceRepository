@@ -11,6 +11,7 @@ namespace IBO.Core.BusinessService.Data
     {
         private BusinessServiceDbContext _repocontext;
         private IStudentRepository _student;
+        private ISchoolRepository _school;
 
         public UnitOfWork(BusinessServiceDbContext context)
         {
@@ -28,6 +29,19 @@ namespace IBO.Core.BusinessService.Data
                 }
 
                 return _student;
+            }
+        }
+
+        public ISchoolRepository Schools 
+        {
+            get
+            {
+                if (_school == null)
+                {
+                    _school = new SchoolRepository(_repocontext);
+                }
+
+                return _school;
             }
         }
 

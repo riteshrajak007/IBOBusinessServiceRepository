@@ -3,6 +3,8 @@ using IBO.Core.BusinessService.Data;
 using IBO.Core.BusinessService.Data.Repositories;
 using IBO.Core.BusinessService.Domain;
 using IBO.Core.BusinessService.Domain.Repositories;
+using IBO.Core.BusinessService.Domain.Services;
+using IBO.Core.BusinessService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,9 +30,14 @@ namespace IBO.Core.BusinessService.Api
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             var connectionString = Configuration.GetConnectionString("SchoolBoardDbContext");
-            services.AddScoped<IUnitOfWork>(sp => new UnitOfWork(new BusinessServiceDbContext()));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<ISchoolService, SchoolService>();
+            //services.AddScoped<IUnitOfWork>(sp => new UnitOfWork(new BusinessServiceDbContext()));
             services.AddDbContext<BusinessServiceDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:SchoolBoardDbContext"]));
         }
+
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

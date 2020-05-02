@@ -13,6 +13,7 @@ namespace IBO.Core.BusinessService.Api.Mapping
         public MappingProfile()
         {
             CreateMap<Student, StudentDto>();
+            CreateMap<School, SchoolDto>();
         }
     }
 }

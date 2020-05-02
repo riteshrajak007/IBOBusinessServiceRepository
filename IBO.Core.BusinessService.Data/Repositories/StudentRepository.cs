@@ -1,5 +1,7 @@
-﻿using IBO.Core.BusinessService.Domain.Models;
+﻿using IBO.Core.BusinessService.Domain;
+using IBO.Core.BusinessService.Domain.Models;
 using IBO.Core.BusinessService.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,23 +14,31 @@ namespace IBO.Core.BusinessService.Data.Repositories
             : base(context)
         {
         }
-
-        //public IEnumerable<Course> GetTopSellingCourses(int count)
+        //public Student AddStudent(Student student)
         //{
-        //    return PlutoContext.Courses.OrderByDescending(c => c.FullPrice).Take(count).ToList();
+        //    schoolboardDbContext.Students.Add(student);
+        //    throw new NotImplementedException();
         //}
 
-        //public IEnumerable<Course> GetCoursesWithAuthors(int pageIndex, int pageSize = 10)
+        //public IEnumerable<Student> GetAllStudents()
         //{
-        //    return PlutoContext.Courses
-        //        .Include(c => c.Author)
-        //        .OrderBy(c => c.Name)
-        //        .Skip((pageIndex - 1) * pageSize)
-        //        .Take(pageSize)
-        //        .ToList();
+        //    schoolboardDbContext.Students.GetAll();
+        //    throw new NotImplementedException();
         //}
 
-        public BusinessServiceDbContext BusinessServiceDbContext
+        //public Student GetStudent(int id)
+        //{
+        //    schoolboardDbContext.Get(id);
+        //    throw new NotImplementedException();
+        //}
+
+        //public void UpdateStudent(Student student)
+        //{
+        //    schoolboardDbContext.Update(student);
+        //    throw new NotImplementedException();
+        //}
+
+        public BusinessServiceDbContext schoolboardDbContext
         {
             get { return Context as BusinessServiceDbContext; }
         }

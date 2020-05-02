@@ -20,6 +20,7 @@ namespace IBO.Core.BusinessService.Domain.Repositories
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 
         void Add(TEntity entity);
+        void Update(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
 
         void Remove(TEntity entity);

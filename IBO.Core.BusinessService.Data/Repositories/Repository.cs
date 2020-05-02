@@ -19,8 +19,6 @@ namespace IBO.Core.BusinessService.Data.Repositories
 
         public TEntity Get(int id)
         {
-            // Here we are working with a DbContext, not PlutoContext. So we don't have DbSets 
-            // such as Courses or Authors, and we need to use the generic Set() method to access them.
             return Context.Set<TEntity>().Find(id);
         }
 
@@ -53,6 +51,11 @@ namespace IBO.Core.BusinessService.Data.Repositories
         public void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
+        }
+
+        public void Update(TEntity entity)
+        {
+            Context.Set<TEntity>().Update(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
