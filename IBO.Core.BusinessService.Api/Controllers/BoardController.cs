@@ -37,10 +37,7 @@ namespace IBO.Core.BusinessService.Api.Controllers
         public IActionResult GetBoard(int id)
         {
             var board = _boardService.GetBoard(id);
-            if (board == null)
-            {
-                return NotFound();
-            }
+            if (board == null) { return NotFound(); }
             return Ok(_mapper.Map<BoardDto>(board));
         }
 
@@ -48,9 +45,7 @@ namespace IBO.Core.BusinessService.Api.Controllers
         public IActionResult AddBoard([FromBody] BoardDto boarddto)
         {
             if (boarddto == null)
-            {
-                return BadRequest();
-            }
+            { return BadRequest();}
             try
             {
                 _boardService.AddBoard(_mapper.Map<Board>(boarddto));
@@ -65,10 +60,7 @@ namespace IBO.Core.BusinessService.Api.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateBoard(int id, [FromBody] BoardDto boarddto)
         {
-            if (id != boarddto.Id || boarddto == null)
-            {
-                return BadRequest();
-            }
+            if (id != boarddto.Id || boarddto == null) { return BadRequest(); }
             try
             {
                 _boardService.UpdateBoard(id, _mapper.Map<Board>(boarddto));
@@ -84,10 +76,7 @@ namespace IBO.Core.BusinessService.Api.Controllers
         public IActionResult DeleteBoard(int id)
         {
             Board toBeDeletedItem = _boardService.GetBoard(id);
-            if (toBeDeletedItem == null)
-            {
-                return NotFound();
-            }
+            if (toBeDeletedItem == null) { return NotFound(); }
             _boardService.DeleteBoard(toBeDeletedItem);
 
             return Ok();
