@@ -5,61 +5,157 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Data.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly DbContext Context;
+        protected readonly DbContext _context;
 
         public Repository(DbContext context)
         {
-            Context = context;
+            _context = context;
         }
 
-        public TEntity Get(int id)
+        public IQueryable<T> GetAll()
         {
-            return Context.Set<TEntity>().Find(id);
+            return _context.Set<T>();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual async Task<ICollection<T>> GetAllAsync()
         {
-            return Context.Set<TEntity>().ToList();
+
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public virtual T Get(int id)
         {
-            return Context.Set<TEntity>().Where(predicate);
+            return _context.Set<T>().Find(id);
         }
 
-        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task<T> GetAsync(int id)
         {
-            return Context.Set<TEntity>().SingleOrDefault(predicate);
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public void Add(TEntity entity)
+        public virtual T Add(T t)
         {
-            Context.Set<TEntity>().Add(entity);
+
+            _context.Set<T>().Add(t);
+            _context.SaveChanges();
+            return t;
         }
 
-        public void Update(TEntity entity)
+        public virtual async Task<T> AddAsync(T t)
         {
-            Context.Set<TEntity>().Update(entity);
+            _context.Set<T>().Add(t);
+            await _context.SaveChangesAsync();
+            return t;
+
         }
 
-        public void AddRange(IEnumerable<TEntity> entities)
+        public virtual T Find(Expression<Func<T, bool>> match)
         {
-            Context.Set<TEntity>().AddRange(entities);
+            return _context.Set<T>().SingleOrDefault(match);
         }
 
-        public void Remove(TEntity entity)
+        public virtual async Task<T> FindAsync(Expression<Func<T, bool>> match)
         {
-            Context.Set<TEntity>().Remove(entity);
+            return await _context.Set<T>().SingleOrDefaultAsync(match);
         }
 
-        public void RemoveRange(IEnumerable<TEntity> entities)
+        public ICollection<T> FindAll(Expression<Func<T, bool>> match)
         {
-            Context.Set<TEntity>().RemoveRange(entities);
+            return _context.Set<T>().Where(match).ToList();
+        }
+
+        public async Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> match)
+        {
+            return await _context.Set<T>().Where(match).ToListAsync();
+        }
+
+        public virtual void Delete(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+            _context.SaveChanges();
+        }
+
+        public virtual async Task<int> DeleteAsync(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+            return await _context.SaveChangesAsync();
+        }
+
+        public virtual T Update(T t, object key)
+        {
+            if (t == null)
+                return null;
+            T exist = _context.Set<T>().Find(key);
+            if (exist != null)
+            {
+                _context.Entry(exist).CurrentValues.SetValues(t);
+                _context.SaveChanges();
+            }
+            return exist;
+        }
+
+        public virtual async Task<T> UpdateAsync(T t, object key)
+        {
+            if (t == null)
+                return null;
+            T exist = await _context.Set<T>().FindAsync(key);
+            if (exist != null)
+            {
+                _context.Entry(exist).CurrentValues.SetValues(t);
+                await _context.SaveChangesAsync();
+            }
+            return exist;
+        }
+
+        public int Count()
+        {
+            return _context.Set<T>().Count();
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _context.Set<T>().CountAsync();
+        }
+
+        public virtual void Save()
+        {
+
+            _context.SaveChanges();
+        }
+
+        public async virtual Task<int> SaveAsync()
+        {
+            return await _context.SaveChangesAsync();
+        }
+
+        public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
+        {
+            IQueryable<T> query = _context.Set<T>().Where(predicate);
+            return query;
+        }
+
+        public virtual async Task<ICollection<T>> FindByAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().Where(predicate).ToListAsync();
+        }
+
+        public IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties)
+        {
+
+            IQueryable<T> queryable = GetAll();
+            foreach (Expression<Func<T, object>> includeProperty in includeProperties)
+            {
+
+                queryable = queryable.Include<T, object>(includeProperty);
+            }
+
+            return queryable;
         }
     }
 }

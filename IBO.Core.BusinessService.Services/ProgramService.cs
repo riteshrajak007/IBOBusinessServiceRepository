@@ -5,6 +5,7 @@ using IBO.Core.BusinessService.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Services
 {
@@ -15,33 +16,33 @@ namespace IBO.Core.BusinessService.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public void AddProgram(Program program)
+        public async Task<ICollection<Program>> GetAllProgramAsync()
         {
-            _unitOfWork.Programs.Add(program);
-            _unitOfWork.Complete();
-            throw new NotImplementedException();
+            return await _unitOfWork.Programs.GetAllAsync();
+        }
+        public async Task<ICollection<Program>> GetAllProgramByIdAsync(int id)
+        {
+            return await _unitOfWork.Programs.FindAllAsync(c => c.Id == id);
+        }
+        public async Task<Program> GetProgramAsync(int id)
+        {
+            return await _unitOfWork.Programs.FindAsync(c => c.Id == id);
         }
 
-        public void DeleteProgram(Program program)
+        public async Task<Program> UpdateProgramAsync(Program t, int key)
         {
-            _unitOfWork.Programs.Remove(program);
-            _unitOfWork.Complete();
+            return await _unitOfWork.Programs.UpdateAsync(t, key);
         }
 
-        public IEnumerable<Program> GetAllPrograms()
+        public async Task<Program> AddProgramAsync(Program t)
         {
-            return _unitOfWork.Programs.GetAll();
+            return await _unitOfWork.Programs.AddAsync(t);
         }
 
-        public Program GetProgram(int id)
+        public async Task<int> DeleteProgramAsync(int id)
         {
-            return _unitOfWork.Programs.Get(id);
-        }
-
-        public void UpdateProgram(int id, Program program)
-        {
-            _unitOfWork.Programs.Update(program);
-            _unitOfWork.Complete();
+            Program itemProgram = _unitOfWork.Programs.Find(c => c.Id == id);
+            return await _unitOfWork.Programs.DeleteAsync(itemProgram);
         }
     }
 }

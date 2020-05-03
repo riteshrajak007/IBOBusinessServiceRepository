@@ -5,6 +5,7 @@ using IBO.Core.BusinessService.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Services
 {
@@ -16,45 +17,33 @@ namespace IBO.Core.BusinessService.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<School> GetAllSchools()
+        public async Task<ICollection<School>> GetAllSchoolAsync()
         {
-            return _unitOfWork.Schools.GetAll();
+            return await _unitOfWork.Schools.GetAllAsync();
+        }
+        public async Task<ICollection<School>> GetAllSchoolByIdAsync(int id)
+        {
+            return await _unitOfWork.Schools.FindAllAsync(c => c.Id == id);
+        }
+        public async Task<School> GetSchoolAsync(int id)
+        {
+            return await _unitOfWork.Schools.FindAsync(c => c.Id == id);
         }
 
-        School ISchoolService.GetSchool(int id)
+        public async Task<School> UpdateSchoolAsync(School t, int key)
         {
-            return _unitOfWork.Schools.Get(id);
+            return await _unitOfWork.Schools.UpdateAsync(t, key);
         }
 
-        void ISchoolService.AddSchool(School school)
+        public async Task<School> AddSchoolAsync(School t)
         {
-            _unitOfWork.Schools.Add(school);
-            _unitOfWork.Complete();
+            return await _unitOfWork.Schools.AddAsync(t);
         }
 
-        void ISchoolService.UpdateSchool(int id, School itemSchool)
+        public async Task<int> DeleteSchoolAsync(int id)
         {
-             //var school = _unitOfWork.Schools.SingleOrDefault(c => c.Id == id);
-            _unitOfWork.Schools.Update(itemSchool);
-            _unitOfWork.Complete();
-        }
-
-        void ISchoolService.DeleteSchool(School school)
-        {
-            _unitOfWork.Schools.Remove(school);
-            _unitOfWork.Complete();
-        }
-
-        void ISchoolService.AddListOfSchool(IEnumerable<School> schoolItems)
-        {
-            _unitOfWork.Schools.AddRange(schoolItems);
-            _unitOfWork.Complete();
-        }
-
-        void ISchoolService.DeleteListOfSchool(IEnumerable<School> schoolItems)
-        {
-            _unitOfWork.Schools.RemoveRange(schoolItems);
-            _unitOfWork.Complete();
+            School itemSchool =_unitOfWork.Schools.Find(c => c.Id == id);
+            return await _unitOfWork.Schools.DeleteAsync(itemSchool);
         }
 
     }

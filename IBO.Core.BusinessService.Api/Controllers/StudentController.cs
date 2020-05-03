@@ -23,70 +23,51 @@ namespace IBO.Core.BusinessService.Api.Controllers
             _studentService = studentService;
         }
 
+        [Route("~/api/Student")]
         [HttpGet]
-        public IActionResult GetAllStudent()
+        public async Task<ICollection<Student>> GetAllStudentAsync()
         {
-            var students = _studentService.GetAllStudents().ToList();
-            List<StudentDto> studentDtos = _mapper.Map<List<Student>, List<StudentDto>>(students);
-            return Ok(studentDtos);
+            return await _studentService.GetAllStudentAsync();
         }
 
+
         [HttpGet("{id}")]
-        public IActionResult GetStudent(int id)
+        public async Task<Student> GetStudentAsync(int id)
         {
-            var student = _studentService.GetStudent(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            return Ok(_mapper.Map<StudentDto>(student));
+            return await _studentService.GetStudentAsync(id);
         }
 
         [HttpPost]
-        public IActionResult AddStudent([FromBody] StudentDto studentdto)
+        public async Task<ActionResult> AddStudentAsync([FromBody] StudentDto studentdto)
         {
-            if (studentdto == null)
-            {
-                return BadRequest();
-            }
+            if (studentdto == null) { return BadRequest(); }
             try
-            {
-                _studentService.AddStudent(_mapper.Map<Student>(studentdto));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            { await _studentService.AddStudentAsync(_mapper.Map<Student>(studentdto)); }
+            catch
+            { return BadRequest(); }
+
             return Ok();
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateStudent(int id, [FromBody] StudentDto studentdto)
+        public async Task<ActionResult> UpdateStudentAsync(int id, [FromBody] StudentDto studentdto)
         {
-            if (id != studentdto.Id || studentdto == null)
-            {
-                return BadRequest();
-            }
+            if (studentdto == null) { return BadRequest(); }
             try
-            {
-                _studentService.UpdateStudent(id, _mapper.Map<Student>(studentdto));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            { await _studentService.UpdateStudentAsync(_mapper.Map<Student>(studentdto), id); }
+            catch
+            { return BadRequest(); }
+
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteStudent(int id)
+        public async Task<ActionResult> DeleteStudentAsync(int id)
         {
-            Student toBeDeletedItem = _studentService.GetStudent(id);
-            if (toBeDeletedItem == null)
-            {
-                return NotFound();
-            }
-            _studentService.DeleteStudent(toBeDeletedItem);
+            try
+            { await _studentService.DeleteStudentAsync(id); }
+            catch
+            { return BadRequest(); }
 
             return Ok();
         }

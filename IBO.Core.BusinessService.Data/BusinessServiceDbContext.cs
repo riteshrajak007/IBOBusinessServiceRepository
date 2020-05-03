@@ -9,7 +9,7 @@ namespace IBO.Core.BusinessService.Data
     {
         public BusinessServiceDbContext(DbContextOptions options) : base(options)
         {
-            //this.ChangeTracker.LazyLoadingEnabled = false;
+
         }
 
         public virtual DbSet<Student> Students { get; set; }

@@ -12,13 +12,9 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public string Country { get; set; }
 
-        //public string User { get; set; } //Teacher,principal, cordinator ---implement  Enum for this 
-
         public virtual Language Language { get; set;}
 
         public virtual Board Board { get; set; }
-
-        //public int LanguageId { get; set; }
 
         public virtual ICollection<Student> Students { get; set; }
 

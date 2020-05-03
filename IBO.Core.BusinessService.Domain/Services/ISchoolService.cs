@@ -2,24 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Domain.Services
 {
     public interface ISchoolService
     {
-        IEnumerable<School> GetAllSchools();
+        Task<ICollection<School>> GetAllSchoolAsync();
 
-        School GetSchool(int id);
+        Task<School> GetSchoolAsync(int id);
 
-        void AddSchool(School school);
+        Task<ICollection<School>> GetAllSchoolByIdAsync(int id);
 
-        void UpdateSchool(int id, School school);
+        Task<School> UpdateSchoolAsync(School t, int key);
 
-        void AddListOfSchool(IEnumerable<School> schoolItems);
+        Task<School> AddSchoolAsync(School t);
 
-        void DeleteSchool(School school);
-
-        void DeleteListOfSchool(IEnumerable<School> schoolItems);
+        Task<int> DeleteSchoolAsync(int id);
 
     }
 }

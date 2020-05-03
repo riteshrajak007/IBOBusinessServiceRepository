@@ -5,6 +5,7 @@ using IBO.Core.BusinessService.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Services
 {
@@ -15,33 +16,33 @@ namespace IBO.Core.BusinessService.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public void AddCourse(Course course)
+        public async Task<ICollection<Course>> GetAllCourseAsync()
         {
-            _unitOfWork.Courses.Add(course);
-            _unitOfWork.Complete();
-            throw new NotImplementedException();
+            return await _unitOfWork.Courses.GetAllAsync();
+        }
+        public async Task<ICollection<Course>> GetAllCourseByIdAsync(int id)
+        {
+            return await _unitOfWork.Courses.FindAllAsync(c => c.Id == id);
+        }
+        public async Task<Course> GetCourseAsync(int id)
+        {
+            return await _unitOfWork.Courses.FindAsync(c => c.Id == id);
         }
 
-        public void DeleteCourse(Course course)
+        public async Task<Course> UpdateCourseAsync(Course t, int key)
         {
-            _unitOfWork.Courses.Remove(course);
-            _unitOfWork.Complete();
+            return await _unitOfWork.Courses.UpdateAsync(t, key);
         }
 
-        public IEnumerable<Course> GetAllCourses()
+        public async Task<Course> AddCourseAsync(Course t)
         {
-            return _unitOfWork.Courses.GetAll();
+            return await _unitOfWork.Courses.AddAsync(t);
         }
 
-        public Course GetCourse(int id)
+        public async Task<int> DeleteCourseAsync(int id)
         {
-            return _unitOfWork.Courses.Get(id);
-        }
-
-        public void UpdateCourse(int id, Course course)
-        {
-            _unitOfWork.Courses.Update(course);
-            _unitOfWork.Complete();
+            Course itemCourse = _unitOfWork.Courses.Find(c => c.Id == id);
+            return await _unitOfWork.Courses.DeleteAsync(itemCourse);
         }
     }
 }

@@ -5,6 +5,7 @@ using IBO.Core.BusinessService.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Services
 {
@@ -15,32 +16,34 @@ namespace IBO.Core.BusinessService.Services
         {
             _unitOfWork = unitOfWork;
         }
-       
-        public IEnumerable<Student> GetAllStudents()
+
+        public async Task<ICollection<Student>> GetAllStudentAsync()
         {
-            return _unitOfWork.Students.GetAll();
+            return await _unitOfWork.Students.GetAllAsync();
         }
-        public void AddStudent(Student student)
+        public async Task<ICollection<Student>> GetAllStudentByIdAsync(int id)
         {
-            _unitOfWork.Students.Add(student);
-            _unitOfWork.Complete();
+            return await _unitOfWork.Students.FindAllAsync(c => c.Id == id);
         }
-        public Student GetStudent(int id)
+        public async Task<Student> GetStudentAsync(int id)
         {
-            return _unitOfWork.Students.Get(id);
+            return await _unitOfWork.Students.FindAsync(c => c.Id == id);
         }
 
-        public void UpdateStudent(int id,Student student)
+        public async Task<Student> UpdateStudentAsync(Student t, int key)
         {
-            //var student = _unitOfWork.Schools.SingleOrDefault(c => c.Id == id);
-            _unitOfWork.Students.Update(student);
-            _unitOfWork.Complete();
+            return await _unitOfWork.Students.UpdateAsync(t, key);
         }
 
-        public void DeleteStudent(Student student)
+        public async Task<Student> AddStudentAsync(Student t)
         {
-            _unitOfWork.Students.Remove(student);
-            _unitOfWork.Complete();
+            return await _unitOfWork.Students.AddAsync(t);
+        }
+
+        public async Task<int> DeleteStudentAsync(int id)
+        {
+            Student itemStudent = _unitOfWork.Students.Find(c => c.Id == id);
+            return await _unitOfWork.Students.DeleteAsync(itemStudent);
         }
     }
 }

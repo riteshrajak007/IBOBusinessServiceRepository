@@ -2,19 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Domain.Services
 {
     public interface ICourseService
     {
-        IEnumerable<Course> GetAllCourses();
+        Task<ICollection<Course>> GetAllCourseAsync();
 
-        Course GetCourse(int id);
+        Task<Course> GetCourseAsync(int id);
 
-        void AddCourse(Course course);
+        Task<ICollection<Course>> GetAllCourseByIdAsync(int id);
 
-        void UpdateCourse(int id, Course course);
+        Task<Course> UpdateCourseAsync(Course t, int key);
 
-        void DeleteCourse(Course course);
+        Task<Course> AddCourseAsync(Course t);
+
+        Task<int> DeleteCourseAsync(int id);
     }
 }

@@ -25,70 +25,51 @@ namespace IBO.Core.BusinessService.Api.Controllers
             _mapper = mapper;
         }
 
+        [Route("~/api/School")]
         [HttpGet]
-        public IActionResult GetAllSchool()
+        public async Task<ICollection<School>> GetAllSchoolAsync()
         {
-            var schools = _schoolService.GetAllSchools().ToList();
-            List<SchoolDto> schoolDtos = _mapper.Map<List<School>, List<SchoolDto>>(schools);
-            return Ok(schoolDtos);
+            return await _schoolService.GetAllSchoolAsync();
         }
 
+
         [HttpGet("{id}")]
-        public IActionResult GetSchool(int id)
+        public async Task<School> GetSchoolAsync(int id)
         {
-            var school = _schoolService.GetSchool(id);
-            if (school == null)
-            {
-                return NotFound();
-            }
-            return Ok(_mapper.Map<SchoolDto>(school));
+            return await _schoolService.GetSchoolAsync(id);
         }
 
         [HttpPost]
-        public IActionResult AddSchool([FromBody] SchoolDto schooldto)
+        public async Task<ActionResult> AddSchoolAsync([FromBody] SchoolDto schooldto)
         {
-            if (schooldto == null)
-            {
-                return BadRequest();
-            }
+            if (schooldto == null) { return BadRequest(); }
             try
-            {
-                _schoolService.AddSchool(_mapper.Map<School>(schooldto));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            { await _schoolService.AddSchoolAsync(_mapper.Map<School>(schooldto)); }
+            catch
+            { return BadRequest(); }
+
             return Ok();
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateSchool(int id, [FromBody] SchoolDto schooldto)
+        public async Task<ActionResult> UpdateSchoolAsync(int id, [FromBody] SchoolDto schooldto)
         {
-            if (id != schooldto.Id || schooldto == null)
-            {
-                return BadRequest();
-            }
+            if (schooldto == null) { return BadRequest(); }
             try
-            {
-                _schoolService.UpdateSchool(id, _mapper.Map<School>(schooldto));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            { await _schoolService.UpdateSchoolAsync(_mapper.Map<School>(schooldto), id); }
+            catch
+            { return BadRequest(); }
+
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteSchool(int id)
+        public async Task<ActionResult> DeleteSchoolAsync(int id)
         {
-            School toBeDeletedItem = _schoolService.GetSchool(id);
-            if(toBeDeletedItem == null)
-            {
-                return NotFound();
-            }
-            _schoolService.DeleteSchool(toBeDeletedItem);
+            try
+            { await _schoolService.DeleteSchoolAsync(id); }
+            catch
+            { return BadRequest(); }
 
             return Ok();
         }

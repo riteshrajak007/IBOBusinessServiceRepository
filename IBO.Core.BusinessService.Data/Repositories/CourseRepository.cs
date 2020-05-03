@@ -14,7 +14,7 @@ namespace IBO.Core.BusinessService.Data.Repositories
         }
         public BusinessServiceDbContext BusinessServiceDbContext
         {
-            get { return Context as BusinessServiceDbContext; }
+            get { return _context as BusinessServiceDbContext; }
         }
     }
     

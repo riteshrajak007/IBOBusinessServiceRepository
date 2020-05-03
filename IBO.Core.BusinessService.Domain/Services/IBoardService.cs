@@ -2,19 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Domain.Services
 {
     public interface IBoardService
     {
-        IEnumerable<Board> GetAllBoards();
+        Task<ICollection<Board>> GetAllBoardAsync();
 
-        Board GetBoard(int id);
+        Task<Board> GetBoardAsync(int id);
 
-        void AddBoard(Board Board);
+        Task<ICollection<Board>> GetAllBoardByIdAsync(int id);
 
-        void UpdateBoard(int id, Board Board);
+        Task<Board> UpdateBoardAsync(Board t, int key);
 
-        void DeleteBoard(Board Board);
+        Task<Board> AddBoardAsync(Board t);
+
+        Task<int> DeleteBoardAsync(int id);
     }
 }

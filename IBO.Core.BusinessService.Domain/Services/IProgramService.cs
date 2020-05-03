@@ -2,19 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Domain.Services
 {
     public interface IProgramService
     {
-        IEnumerable<Program> GetAllPrograms();
+        Task<ICollection<Program>> GetAllProgramAsync();
 
-        Program GetProgram(int id);
+        Task<Program> GetProgramAsync(int id);
 
-        void AddProgram(Program program);
+        Task<ICollection<Program>> GetAllProgramByIdAsync(int id);
 
-        void UpdateProgram(int id, Program program);
+        Task<Program> UpdateProgramAsync(Program t, int key);
 
-        void DeleteProgram(Program program);
+        Task<Program> AddProgramAsync(Program t);
+
+        Task<int> DeleteProgramAsync(int id);
     }
 }

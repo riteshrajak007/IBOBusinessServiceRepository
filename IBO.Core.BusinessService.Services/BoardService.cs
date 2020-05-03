@@ -5,6 +5,7 @@ using IBO.Core.BusinessService.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Services
 {
@@ -15,33 +16,34 @@ namespace IBO.Core.BusinessService.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public void AddBoard(Board board)
+
+        public async Task<ICollection<Board>> GetAllBoardAsync()
         {
-            _unitOfWork.Boards.Add(board);
-            _unitOfWork.Complete();
-            throw new NotImplementedException();
+            return await _unitOfWork.Boards.GetAllAsync();
+        }
+        public async Task<ICollection<Board>> GetAllBoardByIdAsync(int id)
+        {
+            return await _unitOfWork.Boards.FindAllAsync(c => c.Id == id);
+        }
+        public async Task<Board> GetBoardAsync(int id)
+        {
+            return await _unitOfWork.Boards.FindAsync(c => c.Id == id);
         }
 
-        public void DeleteBoard(Board board)
+        public async Task<Board> UpdateBoardAsync(Board t, int key)
         {
-            _unitOfWork.Boards.Remove(board);
-            _unitOfWork.Complete();
+            return await _unitOfWork.Boards.UpdateAsync(t, key);
         }
 
-        public IEnumerable<Board> GetAllBoards()
+        public async Task<Board> AddBoardAsync(Board t)
         {
-            return _unitOfWork.Boards.GetAll();
+            return await _unitOfWork.Boards.AddAsync(t);
         }
 
-        public Board GetBoard(int id)
+        public async Task<int> DeleteBoardAsync(int id)
         {
-            return _unitOfWork.Boards.Get(id);
-        }
-
-        public void UpdateBoard(int id, Board board)
-        {
-            _unitOfWork.Boards.Update(board);
-            _unitOfWork.Complete();
+            Board itemBoard = _unitOfWork.Boards.Find(c => c.Id == id);
+            return await _unitOfWork.Boards.DeleteAsync(itemBoard);
         }
     }
 }
