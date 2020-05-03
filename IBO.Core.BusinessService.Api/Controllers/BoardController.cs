@@ -25,61 +25,52 @@ namespace IBO.Core.BusinessService.Api.Controllers
             _mapper = mapper;
         }
 
-        //[HttpGet]
-        //public IActionResult GetAllBoard()
-        //{
-        //    var boards = _boardService.GetAllBoards().ToList();
-        //    List<BoardDto> boardDtos = _mapper.Map<List<Board>, List<BoardDto>>(boards);
-        //    return Ok(boardDtos);
-        //}
+        [Route("~/api/Board")]
+        [HttpGet]
+        public async Task<ICollection<Board>> GetAllBoardAsync()
+        {
+            return await _boardService.GetAllBoardAsync();
+        }
 
-        //[HttpGet("{id}")]
-        //public IActionResult GetBoard(int id)
-        //{
-        //    var board = _boardService.GetBoard(id);
-        //    if (board == null) { return NotFound(); }
-        //    return Ok(_mapper.Map<BoardDto>(board));
-        //}
+        [HttpGet("{id}")]
+        public async Task<Board> GetBoardAsync(int id)
+        {
+            return await _boardService.GetBoardAsync(id);
+        }
 
-        //[HttpPost]
-        //public IActionResult AddBoard([FromBody] BoardDto boarddto)
-        //{
-        //    if (boarddto == null)
-        //    { return BadRequest();}
-        //    try
-        //    {
-        //        _boardService.AddBoard(_mapper.Map<Board>(boarddto));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    return Ok();
-        //}
+        [HttpPost]
+        public async Task<ActionResult> AddBoardAsync([FromBody] BoardDto boarddto)
+        {
+            if (boarddto == null) { return BadRequest(); }
+            try
+            { await _boardService.AddBoardAsync(_mapper.Map<Board>(boarddto)); }
+            catch
+            { return BadRequest(); }
 
-        //[HttpPut("{id}")]
-        //public IActionResult UpdateBoard(int id, [FromBody] BoardDto boarddto)
-        //{
-        //    if (id != boarddto.Id || boarddto == null) { return BadRequest(); }
-        //    try
-        //    {
-        //        _boardService.UpdateBoard(id, _mapper.Map<Board>(boarddto));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    return Ok();
-        //}
+            return Ok();
+        }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult DeleteBoard(int id)
-        //{
-        //    Board toBeDeletedItem = _boardService.GetBoard(id);
-        //    if (toBeDeletedItem == null) { return NotFound(); }
-        //    _boardService.DeleteBoard(toBeDeletedItem);
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateBoardAsync(int id, [FromBody] BoardDto boarddto)
+        {
+            if (boarddto == null) { return BadRequest(); }
+            try
+            { await _boardService.UpdateBoardAsync(_mapper.Map<Board>(boarddto), id); }
+            catch
+            { return BadRequest(); }
 
-        //    return Ok();
-        //}
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteBoardAsync(int id)
+        {
+            try
+            { await _boardService.DeleteBoardAsync(id); }
+            catch
+            { return BadRequest(); }
+
+            return Ok();
+        }
     }
 }
