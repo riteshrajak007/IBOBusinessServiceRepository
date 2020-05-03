@@ -16,7 +16,7 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public virtual Board Board { get; set; }
 
-        public virtual ICollection<Student> Students { get; set; }
+        //public virtual ICollection<Student> Students { get; set; }
 
     }
 }

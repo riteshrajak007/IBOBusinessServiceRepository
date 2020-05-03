@@ -16,10 +16,10 @@ namespace IBO.Core.BusinessService.Api.Mapping
             CreateMap<StudentDto, Student>()
     .ForMember(student => student.Id, opt => opt.Ignore());
 
-
             CreateMap<School, SchoolDto>();
             CreateMap<SchoolDto, School>()
-    .ForMember(c => c.Id, opt => opt.Ignore());
+    .ForMember(student => student.Id, opt => opt.Ignore());
+
 
             CreateMap<IBO.Core.BusinessService.Domain.Models.Program, ProgramDto>();
 
@@ -29,5 +29,5 @@ namespace IBO.Core.BusinessService.Api.Mapping
         }
     }
 
-    
+
 }

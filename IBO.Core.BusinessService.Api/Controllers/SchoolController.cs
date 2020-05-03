@@ -27,16 +27,18 @@ namespace IBO.Core.BusinessService.Api.Controllers
 
         //[Route("~/api/School")]
         [HttpGet]
-        public async Task<ICollection<School>> GetAllSchoolAsync()
+        public async Task<ICollection<SchoolDto>> GetAllSchoolAsync()
         {
-            return await _schoolService.GetAllSchoolAsync();
+            var schoolCollection = await _schoolService.GetAllSchoolAsync();
+            return await Task.FromResult<ICollection<SchoolDto>>(_mapper.Map<ICollection<School>, ICollection<SchoolDto>>(schoolCollection));
         }
 
 
         [HttpGet("{id}")]
-        public async Task<School> GetSchoolAsync(int id)
+        public async Task<SchoolDto> GetSchoolAsync(int id)
         {
-            return await _schoolService.GetSchoolAsync(id);
+            var school = await _schoolService.GetSchoolAsync(id);
+            return await Task.FromResult<SchoolDto>(_mapper.Map<SchoolDto>(school));
         }
 
         [HttpPost]
@@ -45,8 +47,8 @@ namespace IBO.Core.BusinessService.Api.Controllers
             if (schooldto == null) { return BadRequest(); }
             try
             { await _schoolService.AddSchoolAsync(_mapper.Map<School>(schooldto)); }
-            catch
-            { return BadRequest(); }
+            catch(Exception ex)
+            { return BadRequest(ex.Message); }
 
             return Ok();
         }
@@ -56,9 +58,12 @@ namespace IBO.Core.BusinessService.Api.Controllers
         {
             if (schooldto == null) { return BadRequest(); }
             try
-            { await _schoolService.UpdateSchoolAsync(_mapper.Map<School>(schooldto), id); }
-            catch
-            { return BadRequest(); }
+            {
+                School school = _mapper.Map<School>(schooldto);
+                await _schoolService.UpdateSchoolAsync(school, id); 
+            }
+            catch(Exception ex)
+            { return BadRequest(ex.Message); }
 
             return Ok();
         }

@@ -1,19 +1,17 @@
 ﻿using IBO.Core.BusinessService.Domain;
 using IBO.Core.BusinessService.Domain.Models;
-using IBO.Core.BusinessService.Domain.Repositories;
 using IBO.Core.BusinessService.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
+
 
 namespace IBO.Core.BusinessService.Services
 {
     public class SchoolService : ISchoolService
     {
-        private  IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         public SchoolService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -21,8 +19,7 @@ namespace IBO.Core.BusinessService.Services
 
         public async Task<ICollection<School>> GetAllSchoolAsync()
         {
-            IQueryable<School> schoolList = _unitOfWork.Schools.GetAllIncluding(u => u.Language, u => u.Students, u => u.Board);
-            return await _unitOfWork.Schools.GetAllAsync();
+            return await Task.FromResult<ICollection<School>>(_unitOfWork.Schools.GetAllIncluding(u => u.Language, u => u.Board).ToList());
         }
         public async Task<ICollection<School>> GetAllSchoolByIdAsync(int id)
         {
@@ -35,17 +32,31 @@ namespace IBO.Core.BusinessService.Services
 
         public async Task<School> UpdateSchoolAsync(School t, int key)
         {
-            return await _unitOfWork.Schools.UpdateAsync(t, key);
+            try
+            {
+                return await _unitOfWork.Schools.UpdateAsync(t,(object)key);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<School> AddSchoolAsync(School t)
         {
-            return await _unitOfWork.Schools.AddAsync(t);
+            try
+            {
+                return await _unitOfWork.Schools.AddAsync(t);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<int> DeleteSchoolAsync(int id)
         {
-            School itemSchool =_unitOfWork.Schools.Find(c => c.Id == id);
+            School itemSchool = _unitOfWork.Schools.Find(c => c.Id == id);
             return await _unitOfWork.Schools.DeleteAsync(itemSchool);
         }
 

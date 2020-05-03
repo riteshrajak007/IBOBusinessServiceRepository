@@ -12,7 +12,7 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public virtual ICollection<Program> Programs { get; set; }
 
-        public virtual ICollection<School> Schools { get; set; }
+        //public virtual ICollection<School> Schools { get; set; }
 
     }
 }
