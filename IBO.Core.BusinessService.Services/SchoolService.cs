@@ -4,6 +4,8 @@ using IBO.Core.BusinessService.Domain.Repositories;
 using IBO.Core.BusinessService.Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +21,7 @@ namespace IBO.Core.BusinessService.Services
 
         public async Task<ICollection<School>> GetAllSchoolAsync()
         {
+            IQueryable<School> schoolList = _unitOfWork.Schools.GetAllIncluding(u => u.Language, u => u.Students, u => u.Board);
             return await _unitOfWork.Schools.GetAllAsync();
         }
         public async Task<ICollection<School>> GetAllSchoolByIdAsync(int id)

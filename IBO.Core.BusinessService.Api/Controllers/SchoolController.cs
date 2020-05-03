@@ -25,7 +25,7 @@ namespace IBO.Core.BusinessService.Api.Controllers
             _mapper = mapper;
         }
 
-        [Route("~/api/School")]
+        //[Route("~/api/School")]
         [HttpGet]
         public async Task<ICollection<School>> GetAllSchoolAsync()
         {

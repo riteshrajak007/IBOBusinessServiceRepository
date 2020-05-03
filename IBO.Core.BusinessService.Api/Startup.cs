@@ -11,7 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.OpenApi.Models;
+using System.Linq;
 
 namespace IBO.Core.BusinessService.Api
 {
@@ -29,6 +30,11 @@ namespace IBO.Core.BusinessService.Api
         {
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IBO Business API", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+            });
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IStudentService, StudentService>();
@@ -59,6 +65,11 @@ namespace IBO.Core.BusinessService.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "IBO Business API V1");
             });
         }
     }

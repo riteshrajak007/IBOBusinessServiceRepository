@@ -26,6 +26,8 @@ namespace IBO.Core.BusinessService.Api.Controllers
         }
 
         [HttpGet]
+        
+        
         public async Task<ICollection<Course>> GetAllCourseAsync()
         {
             return await _courseService.GetAllCourseAsync();
@@ -33,12 +35,16 @@ namespace IBO.Core.BusinessService.Api.Controllers
 
 
         [HttpGet("{id}")]
+        
+        
         public async Task<Course> GetCourseAsync(int id)
         {
             return await _courseService.GetCourseAsync(id);
         }
 
         [HttpPost]
+        
+        
         public async Task<ActionResult> AddCourseAsync([FromBody] CourseDto coursedto)
         {
             if (coursedto == null) { return BadRequest(); }
@@ -51,6 +57,8 @@ namespace IBO.Core.BusinessService.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        
+        
         public async Task<ActionResult> UpdateCourseAsync(int id, [FromBody] CourseDto coursedto)
         {
             if (coursedto == null) { return BadRequest(); }
@@ -63,6 +71,8 @@ namespace IBO.Core.BusinessService.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        
+        
         public async Task<ActionResult> DeleteCourseAsync(int id)
         {
             try

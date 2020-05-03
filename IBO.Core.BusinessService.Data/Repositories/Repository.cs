@@ -147,14 +147,11 @@ namespace IBO.Core.BusinessService.Data.Repositories
 
         public IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
-
             IQueryable<T> queryable = GetAll();
             foreach (Expression<Func<T, object>> includeProperty in includeProperties)
             {
-
                 queryable = queryable.Include<T, object>(includeProperty);
             }
-
             return queryable;
         }
     }

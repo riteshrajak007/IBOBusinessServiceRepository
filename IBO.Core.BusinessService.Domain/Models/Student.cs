@@ -24,7 +24,7 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public virtual Grade Grade { get; set; }
 
-        public virtual Program Program { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
 
     }
 
