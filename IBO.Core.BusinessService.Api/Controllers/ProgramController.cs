@@ -14,81 +14,61 @@ namespace IBO.Core.BusinessService.Api.Controllers
     [ApiController]
     public class ProgramController : ControllerBase
     {
-        //private IProgramService _programService;
-        //private readonly IMapper _mapper;
+        private IProgramService _programService;
+        private readonly IMapper _mapper;
 
-        //public ProgramController(IProgramService programService, IMapper mapper)
-        //{
-        //    _programService = programService;
-        //    _mapper = mapper;
-        //}
+        public ProgramController(IProgramService programService, IMapper mapper)
+        {
+            _programService = programService;
+            _mapper = mapper;
+        }
 
-        //[HttpGet]
-        //public IActionResult GetAllProgram()
-        //{
-        //    var programs = _programService.GetAllPrograms().ToList();
-        //    List<ProgramDto> programDtos = _mapper.Map<List<Program>, List<ProgramDto>>(programs);
-        //    return Ok(programDtos);
-        //}
+        [HttpGet]
+        public async Task<ICollection<IBO.Core.BusinessService.Domain.Models.Program>> GetAllProgramAsync()
+        {
+            return await _programService.GetAllProgramAsync();
+        }
 
-        //[HttpGet("{id}")]
-        //public IActionResult GetProgram(int id)
-        //{
-        //    var program = _programService.GetProgram(id);
-        //    if (program == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(_mapper.Map<ProgramDto>(program));
-        //}
 
-        //[HttpPost]
-        //public IActionResult AddProgram([FromBody] ProgramDto programdto)
-        //{
-        //    if (programdto == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    try
-        //    {
-        //        _programService.AddProgram(_mapper.Map<Program>(programdto));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    return Ok();
-        //}
+        [HttpGet("{id}")]
+        public async Task<IBO.Core.BusinessService.Domain.Models.Program> GetProgramAsync(int id)
+        {
+            return await _programService.GetProgramAsync(id);
+        }
 
-        //[HttpPut("{id}")]
-        //public IActionResult UpdateProgram(int id, [FromBody] ProgramDto programdto)
-        //{
-        //    if (id != programdto.Id || programdto == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    try
-        //    {
-        //        _programService.UpdateProgram(id, _mapper.Map<Program>(programdto));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    return Ok();
-        //}
+        [HttpPost]
+        public async Task<ActionResult> AddProgramAsync([FromBody] ProgramDto programdto)
+        {
+            if (programdto == null) { return BadRequest(); }
+            try
+            { await _programService.AddProgramAsync(_mapper.Map<IBO.Core.BusinessService.Domain.Models.Program>(programdto)); }
+            catch
+            { return BadRequest(); }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult DeleteProgram(int id)
-        //{
-        //    var toBeDeletedItem = _programService.GetProgram(id);
-        //    if (toBeDeletedItem == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    _programService.DeleteProgram(toBeDeletedItem);
+            return Ok();
+        }
 
-        //    return Ok();
-        //}
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateProgramAsync(int id, [FromBody] ProgramDto programdto)
+        {
+            if (programdto == null) { return BadRequest(); }
+            try
+            { await _programService.UpdateProgramAsync(_mapper.Map<IBO.Core.BusinessService.Domain.Models.Program>(programdto), id); }
+            catch
+            { return BadRequest(); }
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProgramAsync(int id)
+        {
+            try
+            { await _programService.DeleteProgramAsync(id); }
+            catch
+            { return BadRequest(); }
+
+            return Ok();
+        }
     }
 }

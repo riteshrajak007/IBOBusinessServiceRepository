@@ -21,6 +21,7 @@ namespace IBO.Core.BusinessService.Api.Controllers
         public StudentController(IStudentService studentService, IMapper mapper)
         {
             _studentService = studentService;
+            _mapper = mapper;
         }
 
         [Route("~/api/Student")]

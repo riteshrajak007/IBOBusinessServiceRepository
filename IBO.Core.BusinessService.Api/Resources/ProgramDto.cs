@@ -12,6 +12,6 @@ namespace IBO.Core.BusinessService.Api.Resources
 
         public string Name { get; set; }
 
-        public virtual Board Board { get; set; }
+        public Board Board { get; set; }
     }
 }
