@@ -12,11 +12,9 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public string Country { get; set; }
 
-        public virtual Language Language { get; set;}
+        public string Language { get; set; }
 
-        public virtual Board Board { get; set; }
-
-        //public virtual ICollection<Student> Students { get; set; }
+        public string Board { get; set; }
 
     }
 }

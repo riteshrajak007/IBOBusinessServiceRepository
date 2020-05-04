@@ -28,7 +28,7 @@ namespace IBO.Core.BusinessService.Domain.Repositories
         Task<T> GetAsync(int id);
         void Save();
         Task<int> SaveAsync();
-        T Update(T t, object key);
+        T UpdateStudent(T t, object key);
         Task<T> UpdateAsync(T t, object key);
     }
 }

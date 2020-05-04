@@ -33,17 +33,14 @@ namespace IBO.Core.BusinessService.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IBO Business API", Version = "v1" });
-                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
 
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IStudentService, StudentService>();
-            services.AddTransient<IBoardService, BoardService>();
-            services.AddTransient<ISchoolService, SchoolService>();
-            services.AddTransient<ICourseService, CourseService>();
-            services.AddTransient<IProgramService, ProgramService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<ISchoolService, SchoolService>();
 
             services.AddDbContext<BusinessServiceDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:SchoolBoardDbContext"]));
+            //services.AddDbContext<BusinessServiceDbContext>();
         }
 
         

@@ -14,9 +14,9 @@ namespace IBO.Core.BusinessService.Api.Resources
 
         public string Country { get; set; }
 
-        public Language Language { get; set; }
+        public string Language { get; set; }
 
-        public Board Board { get; set; }
+        public string Board { get; set; }
 
     }
 }

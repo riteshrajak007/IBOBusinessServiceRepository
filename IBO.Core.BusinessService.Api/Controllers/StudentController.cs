@@ -32,7 +32,8 @@ namespace IBO.Core.BusinessService.Api.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetStudentById/{id}")]
         public async Task<Student> GetStudentAsync(int id)
         {
             return await _studentService.GetStudentAsync(id);
@@ -43,26 +44,34 @@ namespace IBO.Core.BusinessService.Api.Controllers
         {
             if (studentdto == null) { return BadRequest(); }
             try
-            { await _studentService.AddStudentAsync(_mapper.Map<Student>(studentdto)); }
+            {
+                var school = _mapper.Map<Student>(studentdto);
+                await _studentService.AddStudentAsync(school);
+            }
             catch
             { return BadRequest(); }
 
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateStudentAsync(int id, [FromBody] StudentDto studentdto)
+        [HttpPut]
+        public async Task<ActionResult> UpdateStudentAsync([FromBody] StudentDto studentdto)
         {
             if (studentdto == null) { return BadRequest(); }
             try
-            { await _studentService.UpdateStudentAsync(_mapper.Map<Student>(studentdto), id); }
+            {
+                int key = studentdto.Id;
+                var school = _mapper.Map<Student>(studentdto);
+                await _studentService.UpdateStudentAsync(school, key); 
+            }
             catch
             { return BadRequest(); }
 
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("DeleteStudentById/{id}")]
         public async Task<ActionResult> DeleteStudentAsync(int id)
         {
             try

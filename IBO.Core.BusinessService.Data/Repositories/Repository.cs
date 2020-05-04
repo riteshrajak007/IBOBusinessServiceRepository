@@ -87,7 +87,7 @@ namespace IBO.Core.BusinessService.Data.Repositories
             return await _context.SaveChangesAsync();
         }
 
-        public virtual T Update(T t, object key)
+        public virtual T UpdateStudent(T t, object key)
         {
             if (t == null)
                 return null;
@@ -95,7 +95,7 @@ namespace IBO.Core.BusinessService.Data.Repositories
             if (exist != null)
             {
                 _context.Entry(exist).CurrentValues.SetValues(t);
-                _context.SaveChanges();
+                //_context.SaveChanges();
             }
             return exist;
         }

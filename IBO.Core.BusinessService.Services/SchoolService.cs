@@ -19,7 +19,7 @@ namespace IBO.Core.BusinessService.Services
 
         public async Task<ICollection<School>> GetAllSchoolAsync()
         {
-            return await Task.FromResult<ICollection<School>>(_unitOfWork.Schools.GetAllIncluding(u => u.Language, u => u.Board).ToList());
+            return await Task.FromResult<ICollection<School>>(_unitOfWork.Schools.GetAll().ToList());
         }
         public async Task<ICollection<School>> GetAllSchoolByIdAsync(int id)
         {
@@ -34,7 +34,9 @@ namespace IBO.Core.BusinessService.Services
         {
             try
             {
-                return await _unitOfWork.Schools.UpdateAsync(t,(object)key);
+                var result= _unitOfWork.Schools.UpdateStudent(t, (object)key);
+                await _unitOfWork.Schools.SaveAsync();
+                return result;
             }
             catch (Exception ex)
             {

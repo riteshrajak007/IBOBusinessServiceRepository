@@ -32,7 +32,9 @@ namespace IBO.Core.BusinessService.Services
 
         public async Task<Student> UpdateStudentAsync(Student t, int key)
         {
-            return await _unitOfWork.Students.UpdateAsync(t, key);
+            var result = _unitOfWork.Students.UpdateStudent(t, (object)key);
+            await _unitOfWork.Students.SaveAsync();
+            return result;
         }
 
         public async Task<Student> AddStudentAsync(Student t)

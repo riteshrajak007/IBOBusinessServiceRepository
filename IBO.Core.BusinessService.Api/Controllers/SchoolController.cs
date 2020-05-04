@@ -1,4 +1,4 @@
-﻿using System;
+﻿        using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,7 +34,8 @@ namespace IBO.Core.BusinessService.Api.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetSchoolById/{id}")]
         public async Task<SchoolDto> GetSchoolAsync(int id)
         {
             var school = await _schoolService.GetSchoolAsync(id);
@@ -46,21 +47,9 @@ namespace IBO.Core.BusinessService.Api.Controllers
         {
             if (schooldto == null) { return BadRequest(); }
             try
-            { await _schoolService.AddSchoolAsync(_mapper.Map<School>(schooldto)); }
-            catch(Exception ex)
-            { return BadRequest(ex.Message); }
-
-            return Ok();
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateSchoolAsync(int id, [FromBody] SchoolDto schooldto)
-        {
-            if (schooldto == null) { return BadRequest(); }
-            try
             {
-                School school = _mapper.Map<School>(schooldto);
-                await _schoolService.UpdateSchoolAsync(school, id); 
+                var school = _mapper.Map<School>(schooldto);
+                await _schoolService.AddSchoolAsync(school);
             }
             catch(Exception ex)
             { return BadRequest(ex.Message); }
@@ -68,7 +57,24 @@ namespace IBO.Core.BusinessService.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpPut]
+        public async Task<ActionResult> UpdateSchoolAsync([FromBody] SchoolDto schooldto)
+        {
+            if (schooldto == null) { return BadRequest(); }
+            try
+            {
+                int key = schooldto.Id;
+                School school = _mapper.Map<School>(schooldto);
+                await _schoolService.UpdateSchoolAsync(school, key); 
+            }
+            catch(Exception ex)
+            { return BadRequest(ex.Message); }
+
+            return Ok();
+        }
+        
+        [HttpDelete]
+        [Route("DeleteSchoolById/{id}")]
         public async Task<ActionResult> DeleteSchoolAsync(int id)
         {
             try

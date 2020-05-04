@@ -12,9 +12,7 @@ namespace IBO.Core.BusinessService.Data
         private BusinessServiceDbContext _repocontext;
         private IStudentRepository _student;
         private ISchoolRepository _school;
-        private IBoardRepository _board;
-        private IProgramRepository _program;
-        private ICourseRepository _course;
+        
 
         public UnitOfWork(BusinessServiceDbContext context)
         {
@@ -47,44 +45,6 @@ namespace IBO.Core.BusinessService.Data
             }
         }
 
-        public ICourseRepository Courses
-        {
-            get
-            {
-                if (_course == null)
-                {
-                    _course = new CourseRepository(_repocontext);
-                }
-
-                return _course;
-            }
-        }
-
-        public IBoardRepository Boards
-        {
-            get
-            {
-                if (_board == null)
-                {
-                    _board = new BoardRepository(_repocontext);
-                }
-
-                return _board;
-            }
-        }
-
-        public IProgramRepository Programs
-        {
-            get
-            {
-                if (_program == null)
-                {
-                    _program = new ProgramRepository(_repocontext);
-                }
-
-                return _program;
-            }
-        }
 
         public int Complete()
         {

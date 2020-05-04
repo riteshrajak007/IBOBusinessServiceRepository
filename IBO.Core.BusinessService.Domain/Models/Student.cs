@@ -18,13 +18,11 @@ namespace IBO.Core.BusinessService.Domain.Models
 
         public bool IsActive { get; set; }
 
-        public virtual Language Language { get; set; }
+        public string Language { get; set; }
 
-        public virtual School School { get; set; }
+        public string School { get; set; }
 
-        public virtual Grade Grade { get; set; }
-
-        public virtual ICollection<Course> Courses { get; set; }
+        public string Grade { get; set; }
 
     }
 
