@@ -25,14 +25,12 @@ namespace IBO.Core.BusinessService.Api.Controllers
             _mapper = mapper;
         }
 
-        //[Route("~/api/School")]
         [HttpGet]
         public async Task<ICollection<SchoolDto>> GetAllSchoolAsync()
         {
             var schoolCollection = await _schoolService.GetAllSchoolAsync();
             return await Task.FromResult<ICollection<SchoolDto>>(_mapper.Map<ICollection<School>, ICollection<SchoolDto>>(schoolCollection));
         }
-
 
         [HttpGet]
         [Route("GetSchoolById/{id}")]

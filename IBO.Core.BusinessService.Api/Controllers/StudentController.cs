@@ -24,13 +24,11 @@ namespace IBO.Core.BusinessService.Api.Controllers
             _mapper = mapper;
         }
 
-        //[Route("~/api/Student")]
         [HttpGet]
         public async Task<ICollection<Student>> GetAllStudentAsync()
         {
             return await _studentService.GetAllStudentAsync();
         }
-
 
         [HttpGet]
         [Route("GetStudentById/{id}")]
