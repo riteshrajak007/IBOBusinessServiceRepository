@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using IBO.Core.BusinessService.Domain.Services;
 using IBO.Core.BusinessService.Api.Resources;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using IBO.Core.BusinessService.Domain.Models;
 

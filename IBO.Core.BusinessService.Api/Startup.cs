@@ -1,8 +1,6 @@
 using AutoMapper;
 using IBO.Core.BusinessService.Data;
-using IBO.Core.BusinessService.Data.Repositories;
 using IBO.Core.BusinessService.Domain;
-using IBO.Core.BusinessService.Domain.Repositories;
 using IBO.Core.BusinessService.Domain.Services;
 using IBO.Core.BusinessService.Services;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Linq;
 
 namespace IBO.Core.BusinessService.Api
 {

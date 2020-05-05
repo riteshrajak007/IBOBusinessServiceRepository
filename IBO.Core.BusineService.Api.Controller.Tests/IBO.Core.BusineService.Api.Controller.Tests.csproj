@@ -24,8 +24,4 @@
     <ProjectReference Include="..\IBO.Core.BusinessService.Api\IBO.Core.BusinessService.Api.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="StudentControllerTests\" />
-  </ItemGroup>
-
 </Project>

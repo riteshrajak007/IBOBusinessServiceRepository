@@ -1,14 +1,11 @@
-﻿        using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using IBO.Core.BusinessService.Api.Resources;
 using IBO.Core.BusinessService.Domain.Models;
 using IBO.Core.BusinessService.Domain.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace IBO.Core.BusinessService.Api.Controllers
 {

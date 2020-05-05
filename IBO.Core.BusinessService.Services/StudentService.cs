@@ -1,10 +1,8 @@
 ﻿using IBO.Core.BusinessService.Domain;
 using IBO.Core.BusinessService.Domain.Models;
-using IBO.Core.BusinessService.Domain.Repositories;
 using IBO.Core.BusinessService.Domain.Services;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using static IBO.Core.BusinessService.Services.Enums;
 

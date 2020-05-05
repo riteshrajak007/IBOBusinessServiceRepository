@@ -1,9 +1,6 @@
 ﻿using IBO.Core.BusinessService.Domain;
 using IBO.Core.BusinessService.Domain.Models;
 using IBO.Core.BusinessService.Domain.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IBO.Core.BusinessService.Services
