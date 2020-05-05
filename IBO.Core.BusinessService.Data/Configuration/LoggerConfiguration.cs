@@ -10,8 +10,6 @@ namespace IBO.Core.BusinessService.Data.Configuration
         public void Configure(EntityTypeBuilder<Logger> builder)
         {
             builder.ToTable("tblLog");
-            //builder.HasKey(x => x.Id);
-
         }
     }
 }
