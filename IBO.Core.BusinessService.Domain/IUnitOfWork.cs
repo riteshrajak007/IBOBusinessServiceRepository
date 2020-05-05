@@ -11,6 +11,8 @@ namespace IBO.Core.BusinessService.Domain
        
         ISchoolRepository Schools { get; }
 
+        ILoggerRepository Loggers { get; }
+
         int Complete();
     }
 }

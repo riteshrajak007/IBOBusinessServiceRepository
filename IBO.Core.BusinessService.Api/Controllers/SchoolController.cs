@@ -25,6 +25,10 @@ namespace IBO.Core.BusinessService.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// GetAllSchool
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ICollection<SchoolDto>> GetAllSchoolAsync()
         {
@@ -32,6 +36,12 @@ namespace IBO.Core.BusinessService.Api.Controllers
             return await Task.FromResult<ICollection<SchoolDto>>(_mapper.Map<ICollection<School>, ICollection<SchoolDto>>(schoolCollection));
         }
 
+
+        /// <summary>
+        /// GetSchool by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetSchoolById/{id}")]
         public async Task<SchoolDto> GetSchoolAsync(int id)
@@ -40,6 +50,11 @@ namespace IBO.Core.BusinessService.Api.Controllers
             return await Task.FromResult<SchoolDto>(_mapper.Map<SchoolDto>(school));
         }
 
+        /// <summary>
+        /// Add New School
+        /// </summary>
+        /// <param name="schooldto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> AddSchoolAsync([FromBody] SchoolDto schooldto)
         {
@@ -55,6 +70,11 @@ namespace IBO.Core.BusinessService.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Update School
+        /// </summary>
+        /// <param name="schooldto"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<ActionResult> UpdateSchoolAsync([FromBody] SchoolDto schooldto)
         {
@@ -71,6 +91,11 @@ namespace IBO.Core.BusinessService.Api.Controllers
             return Ok();
         }
         
+        /// <summary>
+        /// Delete School
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("DeleteSchoolById/{id}")]
         public async Task<ActionResult> DeleteSchoolAsync(int id)

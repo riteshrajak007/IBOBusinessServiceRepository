@@ -4,14 +4,16 @@ using IBO.Core.BusinessService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IBO.Core.BusinessService.Data.Migrations
 {
     [DbContext(typeof(BusinessServiceDbContext))]
-    partial class BusinessServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200505132733_AddLogger")]
+    partial class AddLogger
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace IBO.Core.BusinessService.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblLog");
+                    b.ToTable("Loggers");
                 });
 
             modelBuilder.Entity("IBO.Core.BusinessService.Domain.Models.School", b =>

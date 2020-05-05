@@ -15,7 +15,7 @@ namespace IBO.Core.BusinessService.Data.Repositories
         {
         }
 
-        public Student UpdateStudent(Student t, object key)
+        public override Student UpdateStudent(Student t, object key)
         {
             if (t == null)
                 return null;

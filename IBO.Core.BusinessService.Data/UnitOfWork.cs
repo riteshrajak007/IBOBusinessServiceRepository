@@ -12,7 +12,8 @@ namespace IBO.Core.BusinessService.Data
         private BusinessServiceDbContext _repocontext;
         private IStudentRepository _student;
         private ISchoolRepository _school;
-        
+        private ILoggerRepository _logger;
+
 
         public UnitOfWork(BusinessServiceDbContext context)
         {
@@ -42,6 +43,19 @@ namespace IBO.Core.BusinessService.Data
                 }
 
                 return _school;
+            }
+        }
+
+        public ILoggerRepository Loggers
+        {
+            get
+            {
+                if (_logger == null)
+                {
+                    _logger = new LoggerRepository(_repocontext);
+                }
+
+                return _logger;
             }
         }
 

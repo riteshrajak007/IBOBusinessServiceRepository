@@ -24,12 +24,22 @@ namespace IBO.Core.BusinessService.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Fetch All Students by Id
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ICollection<Student>> GetAllStudentAsync()
         {
             return await _studentService.GetAllStudentAsync();
         }
 
+
+        /// <summary>
+        /// Fetch Students by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetStudentById/{id}")]
         public async Task<Student> GetStudentAsync(int id)
@@ -37,6 +47,12 @@ namespace IBO.Core.BusinessService.Api.Controllers
             return await _studentService.GetStudentAsync(id);
         }
 
+
+        /// <summary>
+        /// Add Students in Db
+        /// </summary>
+        /// <param name="studentdto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> AddStudentAsync([FromBody] StudentDto studentdto)
         {
@@ -52,6 +68,11 @@ namespace IBO.Core.BusinessService.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Update Students in Db
+        /// </summary>
+        /// <param name="studentdto"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<ActionResult> UpdateStudentAsync([FromBody] StudentDto studentdto)
         {
@@ -68,6 +89,11 @@ namespace IBO.Core.BusinessService.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Deletes Student from tblStudent
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("DeleteStudentById/{id}")]
         public async Task<ActionResult> DeleteStudentAsync(int id)

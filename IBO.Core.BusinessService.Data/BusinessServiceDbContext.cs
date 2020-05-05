@@ -14,6 +14,7 @@ namespace IBO.Core.BusinessService.Data
         public virtual DbSet<Student> Students { get; set; }
         
         public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<Logger> Loggers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,6 +25,7 @@ namespace IBO.Core.BusinessService.Data
         {
             modelBuilder.ApplyConfiguration(new SchoolConfiguration());
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
+            modelBuilder.ApplyConfiguration(new LoggerConfiguration());
         }
 
     }

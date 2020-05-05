@@ -38,9 +38,9 @@ namespace IBO.Core.BusinessService.Api
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ISchoolService, SchoolService>();
+            services.AddScoped<ILoggerService, LoggerService>();
 
             services.AddDbContext<BusinessServiceDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:SchoolBoardDbContext"]));
-            //services.AddDbContext<BusinessServiceDbContext>();
         }
 
         
