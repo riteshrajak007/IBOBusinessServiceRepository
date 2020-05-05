@@ -13,6 +13,12 @@ namespace IBO.Core.BusinessService.Data.Repositories
           : base(context)
         {
         }
+
+        /// <summary>
+        /// Insert log in tblLog
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <returns></returns>
         public async Task<bool> InsertIntoLog(Logger logger)
         {
             logger.Date = DateTime.Now;
