@@ -16,10 +16,10 @@ namespace IBO.Core.BusinessService.Data
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Logger> Loggers { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=DNETAZ14;Initial Catalog=SchoolBoardDb;Integrated Security=True;");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Data Source=DNETAZ14;Initial Catalog=SchoolBoardDb;Integrated Security=True;");
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
